@@ -9,9 +9,6 @@
 */
 /*  Testeo:
     El siguiente programa solo ha sido probado en Linux.
-    Si se desea la compatibilidad con Windows, probablemente será necesario
-    remover las funciones system("clear"), getchar() y observar los errores
-    de compilación para adecuarlos a ese S.O.
 */
 
 #include "lectura_AFD.c"
@@ -45,10 +42,18 @@ int main(void)
 
         printf("Escriba su cadena: ");
         scanf("%255s", cadena);
-        obtener_resultado(afd, cadena);
+
+        if(comprobar_cadena(afd.sigma, cadena) == strlen(cadena))
+        {
+            obtener_resultado(afd, cadena);
+        }
+        else
+        {
+            separadores_cortos();
+            printf("\t\t». Caracteres invalidos.\n");
+        }
 
         eliminar_todo(afd, datosTransiciones);
-    }
-    
+    }    
     return 0;
 }

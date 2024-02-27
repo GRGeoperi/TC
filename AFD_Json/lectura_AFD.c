@@ -412,3 +412,16 @@ void imprimir_conjunto(tupla ArregloManejable)
         printf("%s\n", ArregloManejable.conjunto[i]);
     }
 }
+
+// Comprueba que la cadena contenga caracteres permitidos del alfabeto.
+int comprobar_cadena(tupla ArregloManejable, char *Cadena)
+{
+    int resultado;
+    char *alfabeto;
+    for(size_t i = 0; i < ArregloManejable.cardinalidad; i++)
+    {
+        alfabeto = strcat(alfabeto, ArregloManejable.conjunto[i]);
+    }
+    resultado = strspn(&Cadena, alfabeto);
+    return resultado;
+}

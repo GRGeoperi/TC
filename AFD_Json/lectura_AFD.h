@@ -73,3 +73,4 @@ void eliminar_todo(quintupla Afd, tablaTransicion TransicionesCrudas);
 
 void imprimir_transiciones(tablaTransicion TablaManejable);
 void imprimir_conjunto(tupla ArregloManejable);
+int comprobar_cadena(tupla ArregloManejable, char *Cadena);
