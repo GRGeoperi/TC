@@ -15,6 +15,7 @@
 */
 
 #include "lectura_AFD.c"
+#include "mensajes.c"
 
 int main(void)
 {

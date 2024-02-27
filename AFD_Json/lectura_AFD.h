@@ -49,10 +49,6 @@ typedef struct Quintupla
     tupla digamma;
 }quintupla;
 
-void separadores_cortos();
-void separadores_largos();
-void mensaje_inicial();
-
 int listar_json();
 int verificar_json(char NombreArchivo[256]);
 int elegir_json(char *NombreArchivo);
