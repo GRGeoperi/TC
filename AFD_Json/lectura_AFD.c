@@ -422,6 +422,6 @@ int comprobar_cadena(tupla ArregloManejable, char *Cadena)
     {
         alfabeto = strcat(alfabeto, ArregloManejable.conjunto[i]);
     }
-    resultado = strspn(&Cadena, alfabeto);
+    resultado = strspn(Cadena, alfabeto);
     return resultado;
 }
