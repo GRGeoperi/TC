@@ -29,7 +29,6 @@ int listar_json()
         }
     }
     closedir(directorioActual);
-    free(archivos);
     if (existencia != 0)
     {
         return 0;
@@ -103,8 +102,6 @@ char *obtener_estado_inicial(char *Objeto, char *NombreArchivo)
     datoCrudo = json_object_get(repositorio, Objeto);
     datoManejable = json_string_value(datoCrudo);
 
-    estadoInicial = (char*)malloc(sizeof(char) * json_string_length(datoCrudo));
-
     estadoInicial = strdup(datoManejable);
 
     json_decref(datoCrudo);
@@ -139,8 +136,6 @@ tupla obtener_conjuntos(char *Objeto, char *NombreArchivo)
         datoCrudo = json_array_get(arregloCrudo, i);
         datoManejable = json_string_value(datoCrudo);
         arregloManejable.conjunto[i] = strdup(datoManejable);
-
-        json_decref(datoCrudo);
     }
 
     json_decref(arregloCrudo);
@@ -179,11 +174,8 @@ tablaTransicion obtener_tabla_transiciones(char *Objeto, char *NombreArchivo)
             datoCrudo = json_array_get(arregloCrudo, j);
             datoManejable = json_string_value(datoCrudo);
             arregloManejable[j] = strdup(datoManejable);
-            
-            json_decref(datoCrudo);
         }
         tablaManejable.tabla[i] = arregloManejable;
-        json_decref(arregloCrudo);
     }
 
     json_decref(tablaCruda);
@@ -308,7 +300,7 @@ size_t busqueda_bin_cadena(char** Conjunto, size_t Inicio, size_t Cardinalidad, 
 void validar_estado_final(tupla Digamma, char *EstadoResultante)
 {
     size_t indiceDigamma = -1;
-    int comparacion;
+    int comparacion = -1;
 
     if (Digamma.cardinalidad > 1)
     {
@@ -417,11 +409,13 @@ void imprimir_conjunto(tupla ArregloManejable)
 int comprobar_cadena(tupla ArregloManejable, char *Cadena)
 {
     int resultado;
-    char *alfabeto;
+    char *alfabeto = NULL;
     for(size_t i = 0; i < ArregloManejable.cardinalidad; i++)
     {
-        alfabeto = strcat(alfabeto, ArregloManejable.conjunto[i]);
+        alfabeto = realloc(alfabeto, (alfabeto ? strlen(alfabeto) : 0) + strlen(ArregloManejable.conjunto[i]) + 1);
+        strcat(alfabeto, ArregloManejable.conjunto[i]);
     }
     resultado = strspn(Cadena, alfabeto);
+    free(alfabeto);
     return resultado;
 }
